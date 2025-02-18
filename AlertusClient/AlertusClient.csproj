@@ -13,10 +13,23 @@
     <PackageTags>alertus; apiclient; emergency notification; emergency management</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
 	  <Version>1.0.0</Version>
+	  <Description>A limited feature Alertus web API client including contact, group, group membership, location, and error management.</Description>
+	  <PackageIcon>alertus.jpg</PackageIcon>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <RepositoryUrl>https://github.com/alexei1983/AlertusClient</RepositoryUrl>
+	  <PackageProjectUrl>https://github.com/alexei1983/AlertusClient</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\alertus.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
