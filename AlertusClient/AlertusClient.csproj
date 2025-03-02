@@ -12,7 +12,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>alertus; apiclient; emergency notification; emergency management</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-	  <Version>1.0.0</Version>
+	  <Version>1.0.2</Version>
 	  <Description>A limited feature Alertus web API client including contact, group, group membership, location, and error management.</Description>
 	  <PackageIcon>alertus.jpg</PackageIcon>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -36,7 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EnhancedWebRequest" Version="1.1.4" />
+    <PackageReference Include="EnhancedWebRequest" Version="1.1.5" />
   </ItemGroup>
 
 </Project>

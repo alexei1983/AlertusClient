@@ -19,5 +19,6 @@ namespace Llc.GoodConsulting.Web.ThirdParty.Alertus.Model
         public string? CountryId { get; set; }
         public string? Location { get; set; }
         public List<AlertusContactMethodDetail> ContactMethodDetails { get; set; } = [];
+        public List<AlertusCustomField> CustomFields { get; set; } = [];
     }
 }

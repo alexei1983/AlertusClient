@@ -1,7 +1,7 @@
 ﻿
 namespace Llc.GoodConsulting.Web.ThirdParty.Alertus.Model
 {
-    public class AlertusLocation
+    public class AlertusLocation : IAlertusEntity
     {
         public string? Name { get; set; }
         public int? Id { get; set; }

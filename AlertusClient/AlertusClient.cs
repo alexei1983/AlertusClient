@@ -1,7 +1,7 @@
-﻿
-using Llc.GoodConsulting.Web.EnhancedWebRequest;
+﻿using Llc.GoodConsulting.Web.EnhancedWebRequest;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 using System.Text.Json;
 
 namespace Llc.GoodConsulting.Web.ThirdParty.Alertus
@@ -73,6 +73,16 @@ namespace Llc.GoodConsulting.Web.ThirdParty.Alertus
         /// <summary>
         /// 
         /// </summary>
+        public AlertusDevices Devices { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public AlertusActivation Activation { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AlertusPing Ping { get; private set; }
 
         /// <summary>
@@ -98,14 +108,22 @@ namespace Llc.GoodConsulting.Web.ThirdParty.Alertus
             {
                 if (LogToDebug || LogToConsole)
                 {
-                    string? response = e.ResponseMessage?.Content?.ReadAsStringAsync()?.Result;
+                    string? response = e.ResponseMessage?.Content?.ReadAsStringAsync()?.Result ?? string.Empty;
+
+                    var logVal = new StringBuilder();
+                    logVal.Append($"{e.Url} - {e.StatusCode}");
+                    logVal.Append($"{(!string.IsNullOrEmpty(e.ContentType) ? $" - {e.ContentType}" : string.Empty)}");
+                    logVal.AppendLine();
+                    if (!string.IsNullOrEmpty(response))
+                        logVal.AppendLine(response);
+
                     if (LogToConsole)
                     {
-                        Console.WriteLine(response ?? string.Empty);
+                        Console.WriteLine(logVal);
                         Console.WriteLine();
                     }
                     if (LogToDebug)
-                        Debug.WriteLine(response ?? string.Empty);
+                        Debug.WriteLine(logVal);
                 }
             };
 
@@ -113,14 +131,22 @@ namespace Llc.GoodConsulting.Web.ThirdParty.Alertus
             {
                 if (LogToDebug || LogToConsole)
                 {
-                    string? response = e.RequestMessage?.Content?.ReadAsStringAsync()?.Result;
+                    string? request = e.RequestMessage?.Content?.ReadAsStringAsync()?.Result ?? string.Empty;
+
+                    var logVal = new StringBuilder();
+                    logVal.Append($"{e.HttpMethod} {e.Url}");
+                    logVal.Append($"{(!string.IsNullOrEmpty(e.ContentType) ? $" - {e.ContentType}" : string.Empty)}");
+                    logVal.AppendLine();
+                    if (!string.IsNullOrEmpty(request))
+                        logVal.AppendLine(request);
+
                     if (LogToConsole)
                     {
-                        Console.WriteLine(response ?? string.Empty);
+                        Console.WriteLine(logVal);
                         Console.WriteLine();
                     }
                     if (LogToDebug)
-                        Debug.WriteLine(response ?? string.Empty);
+                        Debug.WriteLine(logVal);
                 }
             };
 
@@ -132,6 +158,8 @@ namespace Llc.GoodConsulting.Web.ThirdParty.Alertus
             ContactsGroups = new AlertusContactsGroups(this);
             Locations = new AlertusLocations(this);
             Ping = new AlertusPing(this);
+            Devices = new AlertusDevices(this);
+            Activation = new AlertusActivation(this);
         }
 
         /// <summary>
@@ -187,6 +215,18 @@ namespace Llc.GoodConsulting.Web.ThirdParty.Alertus
         internal async Task<HttpResponseMessage> Delete(string? uri)
         {
             return await request.Delete(uri);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        internal async Task<HttpResponseMessage> DeleteJsonEntity<T>(T entity, string? uri) where T : class, new()
+        {
+            return await request.DeleteContent(entity.ToJsonStringContent(JsonOptions), uri);
         }
     }
 }

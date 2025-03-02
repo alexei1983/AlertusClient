@@ -15,6 +15,8 @@ namespace Llc.GoodConsulting.Web.ThirdParty.Alertus
         public const string VersionUri = "/version";
         public const string LocationsUri = "/locations";
         public const string PingUri = "/ping";
+        public const string AlertDevicesUri = "/alertDevices";
+        public const string ActivationUri = "/activation";
 
         public const string Pong = "pong";
         public const string True = "true";

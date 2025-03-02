@@ -48,6 +48,21 @@ namespace Llc.GoodConsulting.Web.ThirdParty.Alertus
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="contactIds"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public async Task Delete(params string[] contactIds)
+        {
+            if (contactIds is null || contactIds.Length == 0)
+                throw new ArgumentException("At least one Alertus contact ID is required.", nameof(contactIds));
+
+            var result = await client.DeleteJsonEntity<List<string>>([.. contactIds], AlertusConstants.ContactsUri);
+            result.ExpectSuccess();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="contactId"></param>
         /// <param name="contactMethod"></param>
         /// <returns></returns>
